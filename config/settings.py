@@ -2,8 +2,6 @@ import os
 from environs import Env
 
 
-class Project:
-    BASE_URL = 'https://demoqa.com/'
 
 class Expectations:
     DEFAULT_TIMEOUT = 30 * 1000
@@ -19,7 +17,7 @@ class PlayWright:
 class Settings():
     env = Env()              # Создаем экземпляр класса Env
     env.read_env(".env")
-    project: Project = Project()
+    BASE_URL = 'https://demoqa.com/'
     exception: Expectations = Expectations()
     playwright: PlayWright = PlayWright()
 
