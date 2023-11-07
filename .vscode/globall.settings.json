@@ -1,0 +1,33 @@
+{
+    "extensions.autoCheckUpdates": false,       // отключаем автопроверку обновлений для расширений
+    "extensions.autoUpdate": false,             // отключаем автообновления расширений
+
+    "update.showReleaseNotes": false,           // отключаем проверку новых версий для VS CODE
+    "update.mode": "none",                      // отключаем обновления для VS CODE
+
+    "terminal.integrated.cursorStyle": "line",  // изменяем вид курсора в терминале
+    "terminal.integrated.cursorBlinking": true, // делаем курсор в терминале мигающим
+
+    "telemetry.telemetryLevel": "off",          // отключаем телеметрию, передачу логов в Майкрософт
+    "files.autoSave": "afterDelay",             // автосохранение, настройка в files.autoSaveDelay
+    "files.autoSaveDelay": 1500,                // по дефолтту - 1000 = 1 сек
+    "files.insertFinalNewline": true,           // при сохранении, в конце файла добавляем пустую строку
+    "files.trimFinalNewlines": true,            // при сохранении, удаляем лишние строки
+    "files.trimTrailingWhitespace": true,       // при сохранении, удаляем не нужные пробелы в конце каждой строки
+    "window.titleBarStyle": "custom",           // ХЗ, не помню
+    "window.zoomLevel": 1,
+
+    "editor.fontSize": 16,                      // устанавливаем размер шрифта
+    "editor.mouseWheelZoom": true,              // масштабирование колесиком мыши
+    "editor.minimap.renderCharacters": false,   // отключаем миникарту (возможно эта строчка лишняя???)
+    "editor.minimap.enabled": false,            // отключаем миникарту
+    "explorer.compactFolders": false,           // отключаем "компактное" представление папок в эксплорере
+
+    "cSpell.language": "en,ru",                 // для дополнений серии Code Spell Checker включаем многоязычность
+
+
+    "workbench.colorTheme": "Sublime Material Theme - Dark",
+    "workbench.iconTheme": "material-icon-theme"
+
+
+}
