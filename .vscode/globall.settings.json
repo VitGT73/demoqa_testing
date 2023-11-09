@@ -22,12 +22,48 @@
     "editor.minimap.renderCharacters": false,   // отключаем миникарту (возможно эта строчка лишняя???)
     "editor.minimap.enabled": false,            // отключаем миникарту
     "explorer.compactFolders": false,           // отключаем "компактное" представление папок в эксплорере
+    "editor.codeActionsOnSave": {
+        "source.organizeImports": true
+    },
 
     "cSpell.language": "en,ru",                 // для дополнений серии Code Spell Checker включаем многоязычность
 
 
     "workbench.colorTheme": "Sublime Material Theme - Dark",
-    "workbench.iconTheme": "material-icon-theme"
+    "workbench.iconTheme": "material-icon-theme",
+    "python.terminal.activateEnvInCurrentTerminal": true, // автоактивациия виртуального окружения
 
+    "[python]": {
+        "editor.defaultFormatter": "ms-python.black-formatter"
+    },
 
+    "python.languageServer": "Pylance",             // Настроки Pylance для форматирования кода
+    "python.analysis.typeCheckingMode": "basic",      // включаем среднюю строгость проверки, две других - более лояльные
+    "python.analysis.diagnosticMode": "openFilesOnly",      // проверяем только открытые файлы
+    "python.analysis.autoSearchPaths": true,
+    "python.analysis.autoImportCompletions": true,
+    "python.analysis.completeFunctionParens": true,
+    "python.analysis.inlayHints.variableTypes": true,       // отображение аннотации типов в переменных
+    "python.analysis.inlayHints.functionReturnTypes": true, // отображение аннотации типов в функции
+    "python.analysis.importFormat": "absolute",
+    "python.analysis.enablePytestSupport": true,
+    "python.analysis.indexing": true,               // включаем индексацию всех библиотек для лучшего автокомплита
+    "python.analysis.packageIndexDepths": [
+        {
+            "name": "django",                       // для django (как и для других больших библиотек)
+            "depth": 3,                             // включаем глубину индексации = 3 (default = 2)
+            "includeAllSymbols": true
+        }
+    ],
+
+    "files.exclude": {
+        "**/__pycache__": true,                 // Прячем файлы кэше Пайтон
+        "**/.pytest_cache": true,               // Прячем файлы кэше Pytest
+        "**/.venv": true,                       // Прячем файлы виртуального окружения
+        "**/*.pyc": true                        // Прячем файлы кэше Пайтон
+    },
+    "files.associations": {
+        "**/*.html": "html",
+        "**/requirements{/**,*}.{txt,in}": "pip-requirements"
+    }
 }

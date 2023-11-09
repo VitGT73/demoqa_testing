@@ -1,68 +1,52 @@
+from typing import Any, Generator
 import pytest
-from playwright.sync_api import Playwright, Browser #, Page, sync_playwright
-# from config import settings
-# from playwright.sync_api import Browser, BrowserContext, Page, sync_playwright
+from playwright.sync_api import (
+    Playwright,
+    Browser,
+    Page,
+    BrowserContext,
+)
+from config import settings
 
 
 
-@pytest.fixture(scope='module')
-def browser(playwright: Playwright):
-    browser: Browser = playwright.chromium.launch(headless=False)
+@pytest.fixture(scope="function")
+def browser(playwright: Playwright) -> Generator[Browser, Any, None]:
+    headless: bool = settings.playwright.IS_HEADLESS
+    slow_mo: int = settings.playwright.SLOW_MO
+    if settings.playwright.BROWSER == "firefox":
+        browser: Browser = playwright.firefox.launch(headless=headless, slow_mo=slow_mo)
+    elif settings.playwright.BROWSER == "webkit":
+        browser: Browser = playwright.webkit.launch(headless=headless, slow_mo=slow_mo)
+    else:
+       browser: Browser = playwright.chromium.launch(headless=headless, slow_mo=slow_mo)
     yield browser
     browser.close()
 
-# fixture для создания страницы
-@pytest.fixture(scope='function')
-def page(browser):
-    context = browser.new_context()
-    page = context.new_page()
+
+@pytest.fixture(scope="function")
+def page_auth(browser) -> Generator[Page, Any, None]:
+    context: BrowserContext = get_context(browser)
+    context.storage_state(path="state.json")
+    page: Page = context.new_page()
     yield page
+    context.close()
     page.close()
 
 
-
-# @pytest.fixture()
-# def page() -> Page:
-#     playwright = sync_playwright().start()
-#     if settings.playwright.BROWSER == 'firefox':
-#         browser = get_firefox_browser(playwright)
-#         context = get_context(browser)
-#         page_data = context.new_page()
-#     elif settings.playwright.BROWSER == 'chrome':
-#         browser = get_chrome_browser(playwright)
-#         context = get_context(browser)
-#         page_data = context.new_page()
-#     else:
-#         browser = get_chrome_browser(playwright)
-#         context = get_context(browser)
-#         page_data = context.new_page()
-#     yield page_data
-#     for context in browser.contexts:
-#         context.close()
-#     browser.close()
-#     playwright.stop()
+@pytest.fixture(scope="function")
+def page(browser) -> Generator[Page, Any, None]:
+    context: BrowserContext = get_context(browser)
+    page: Page = context.new_page()
+    yield page
+    context.close()
+    page.close()
 
 
-# def get_firefox_browser(playwright) -> Browser:
-#     return playwright.firefox.launch(
-#         headless=settings.playwright.IS_HEADLESS,
-#         slow_mo=settings.playwright.SLOW_MO,
-#     )
-
-
-# def get_chrome_browser(playwright) -> Browser:
-#     return playwright.chromium.launch(
-#         headless=settings.playwright.IS_HEADLESS,
-#         slow_mo=settings.playwright.SLOW_MO
-#     )
-
-
-# def get_context(browser) -> BrowserContext:
-#     context = browser.new_context(
-#         viewport=settings.playwright.PAGE_VIEWPORT_SIZE,
-#         locale=settings.playwright.LOCALE
-#     )
-#     context.set_default_timeout(
-#         timeout=settings.expectations.DEFAULT_TIMEOUT
-#     )
-#     return context
+def get_context(browser) -> BrowserContext:
+    context: BrowserContext = browser.new_context(
+        viewport=settings.playwright.PAGE_VIEWPORT_SIZE,
+        locale=settings.playwright.LOCALE,
+    )
+    context.set_default_timeout(timeout=settings.exception.DEFAULT_TIMEOUT)
+    return context
