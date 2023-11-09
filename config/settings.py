@@ -18,8 +18,8 @@ class PlayWright:
 class Settings:
     env = Env()  # Создаем экземпляр класса Env
     env.read_env(".env")
-    BASE_URL = "https://demoqa.com/"
-    BASE_URL = "https://google.com"
+    # BASE_URL = "https://demoqa.com/"
+    BASE_URL = "https://google.com/"
     exception: Expectations = Expectations()
     playwright: PlayWright = PlayWright()
 
